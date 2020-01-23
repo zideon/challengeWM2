@@ -7,13 +7,13 @@ import java.util.stream.IntStream;
 public class SpiralMatrixGenerator {
 
     public static Integer[][] generate(int n) {
-        boolean direction = true;
         Integer[][] matrix = new Integer[n][n];
         fillBorder(1, 0, matrix);
 
         return matrix;
     }
 
+    //Metodo recursivo que preenche as 4 bordas da matriz na ordem correta e depois chama mesmo metodo para a matriz interna
     private static Integer[][] fillBorder(int ind, int subMatrixIndex, Integer[][] matrix) {
 
         if (ind > matrix.length * matrix.length) {
@@ -35,6 +35,7 @@ public class SpiralMatrixGenerator {
         return ind;
     }
 
+    //Esse metodo retorna array de indices evitando ter que fazer mais de um for para direcoes diferentes
     private static int[] getIndexes(MatrixLineEnum lineEnum,int subMatrixIndex, int size){
         int max = size - subMatrixIndex;
         if (lineEnum == MatrixLineEnum.LINE_UP || lineEnum==MatrixLineEnum.LINE_RIGHT) {
@@ -46,6 +47,10 @@ public class SpiralMatrixGenerator {
         return null;
     }
 
+    /* Pelo enum o metodo sabe qual posicao da matriz preencher, a condicao do elemnto igual a nulo
+    *  serve pra nao sobreescrever o primeiro elemento da linha que ja veio preenchido do fillLine anterior, evitando uso
+    * de malabarismos com o indice
+     */
     private static int fillElement(int ind,MatrixLineEnum line, int i,  int subMatrixIndex, Integer[][] matrix) {
         int first = subMatrixIndex;
         int last = (matrix.length- 1)- subMatrixIndex;
